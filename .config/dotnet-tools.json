@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "nbgv": {
+      "version": "3.6.139",
+      "commands": [
+        "nbgv"
+      ],
+      "rollForward": false
+    },
+    "husky": {
+      "version": "0.7.0",
+      "commands": [
+        "husky"
+      ],
+      "rollForward": false
+    },
+    "dotnet-ef": {
+      "version": "8.0.7",
+      "commands": [
+        "dotnet-ef"
+      ],
+      "rollForward": false
+    }
+  }
+}
