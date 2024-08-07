@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 using BlazorTest.Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlazorTest.Migrations.Context;
 
