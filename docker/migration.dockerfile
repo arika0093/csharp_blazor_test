@@ -22,7 +22,7 @@ RUN dotnet ef migrations bundle --self-contained -r linux-x64 -o ./efbundle
 # execute efbundle container
 FROM mcr.microsoft.com/dotnet/runtime:8.0 AS runtime
 WORKDIR /migration
-COPY --from=build /source/BlazorTest.Migrations/appsettings.json .
+#COPY --from=build /source/BlazorTest.Migrations/appsettings.json .
 COPY --from=build /source/BlazorTest.Migrations/migrations.sql .
 COPY --from=build /source/BlazorTest.Migrations/efbundle .
 
