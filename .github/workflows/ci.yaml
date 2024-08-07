@@ -15,7 +15,7 @@ jobs:
       - name: Setup Docker Compose
         uses: yu-ichiro/spin-up-docker-compose-action@v1
         with:
-          file: docker/compose.yaml
+          file: docker/compose.yml
           shared: true
           bake: true
           push: true
@@ -30,7 +30,7 @@ jobs:
       - name: Setup Docker Compose and Up
         uses: yu-ichiro/spin-up-docker-compose-action@v1
         with:
-          file: docker/compose.yaml
+          file: docker/compose.yml
           shared: true
           pull: true
       - name: Run tests
