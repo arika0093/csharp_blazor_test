@@ -1,11 +1,11 @@
 # C# .NET setup and build , result save to cache
 on:
   push:
-    paths:
-      - '**.cs'
-      - '**.yaml'
-      - '**.csproj'
-      - '**.dockerfile'
+#    paths:
+#      - '**.cs'
+#      - '**.yaml'
+#      - '**.csproj'
+#      - '**.dockerfile'
 
 jobs:
   build-image:
