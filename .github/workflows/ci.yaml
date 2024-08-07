@@ -22,7 +22,7 @@ jobs:
           up: false
 
   test:
-    need: build-image
+    needs: build-image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
