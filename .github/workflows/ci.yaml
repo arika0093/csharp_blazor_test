@@ -5,6 +5,7 @@ on:
       - '**.cs'
       - '**.yaml'
       - '**.csproj'
+      - '**.dockerfile'
 
 jobs:
   build-image:
@@ -15,7 +16,7 @@ jobs:
       - name: Setup Docker Compose
         uses: yu-ichiro/spin-up-docker-compose-action@v1
         with:
-          file: docker/compose.yml
+          file: docker/compose.yaml
           shared: true
           bake: true
           push: true
@@ -30,7 +31,7 @@ jobs:
       - name: Setup Docker Compose and Up
         uses: yu-ichiro/spin-up-docker-compose-action@v1
         with:
-          file: docker/compose.yml
+          file: docker/compose.yaml
           shared: true
           pull: true
       - name: Run tests
