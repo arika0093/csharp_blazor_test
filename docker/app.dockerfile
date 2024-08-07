@@ -10,7 +10,7 @@ COPY . .
 RUN dotnet build -c release --no-restore
 RUN dotnet publish -c release -o ./publish --no-restore
 
-FROM base as final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 as final
 WORKDIR /app
 COPY --from=build /source/publish .
 # run web app
