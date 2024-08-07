@@ -17,13 +17,13 @@ WORKDIR /source/BlazorTest.Migrations
 # export sql
 RUN dotnet ef migrations script -o ./migrations.sql --idempotent
 # execute dotnet ef update
-RUN dotnet ef migrations bundle --self-contained -r linux-x64
+RUN dotnet ef migrations bundle --self-contained -r linux-x64 -o ./efbundle
 
 # execute efbundle container
 FROM mcr.microsoft.com/dotnet/runtime:8.0 AS runtime
 WORKDIR /migration
-COPY --from=build ./appsettings.json .
-COPY --from=build ./migrations.sql .
-COPY --from=build ./efbundle .
+COPY --from=build /source/BlazorTest.Migrations/appsettings.json .
+COPY --from=build /source/BlazorTest.Migrations/migrations.sql .
+COPY --from=build /source/BlazorTest.Migrations/efbundle .
 
 CMD ["./efbundle"]
