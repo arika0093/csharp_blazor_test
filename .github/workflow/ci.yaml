@@ -1,0 +1,38 @@
+# C# .NET setup and build , result save to cache
+on:
+  push:
+    paths:
+      - '**.cs'
+      - '**.yaml'
+      - '**.csproj'
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Docker Compose
+        uses: yu-ichiro/spin-up-docker-compose-action@v1
+        with:
+          file: docker/compose.yaml
+          shared: true
+          bake: true
+          push: true
+          up: false
+
+  test:
+    need: build-image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Docker Compose and Up
+        uses: yu-ichiro/spin-up-docker-compose-action@v1
+        with:
+          file: docker/compose.yaml
+          shared: true
+          pull: true
+      - name: Run tests
+        run: docker compose -exec app dotnet test BlazorTest.Tests.dll
+
