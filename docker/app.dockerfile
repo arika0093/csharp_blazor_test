@@ -1,6 +1,9 @@
 # build C# and release
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /source
+# restore dotnet tool
+COPY ./.config/ ./config/
+RUN dotnet tool restore
 # copy all files
 COPY . .
 # run dotnet restore
