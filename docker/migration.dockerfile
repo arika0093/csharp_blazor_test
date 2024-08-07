@@ -1,8 +1,8 @@
 # setup C# environment
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /source
-# install dotnet-ef
-RUN dotnet tool install --global dotnet-ef
+# install dotnet-ef locally
+RUN dotnet tool install dotnet-ef
 # run dotnet restore
 COPY ["./BlazorTest.Migrations/*.csproj", "./"]
 RUN dotnet restore
