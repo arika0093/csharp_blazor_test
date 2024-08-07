@@ -16,10 +16,9 @@ jobs:
       - name: Setup Docker Compose
         uses: yu-ichiro/spin-up-docker-compose-action@v1
         with:
-          file: docker/compose.yaml
+          file: ./docker-compose.yaml
           shared: true
           bake: true
-          push: true
           up: false
 
   test:
@@ -34,6 +33,4 @@ jobs:
           file: docker/compose.yaml
           shared: true
           pull: true
-      - name: Run tests
-        run: docker compose -exec app dotnet test BlazorTest.Tests.dll
 

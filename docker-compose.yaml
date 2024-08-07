@@ -1,20 +1,27 @@
 services:
   app:
     build:
-      context: ../
-      dockerfile: ./docker/app.dockerfile
+      context: .
+      dockerfile: ./dockerfile
     restart: "unless-stopped"
+    entrypoint: ["./web"]
     ports:
       - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     depends_on:
       migration:
         condition: "service_completed_successfully"
 
   migration:
     build:
-      context: ../
-      dockerfile: ./docker/migration.dockerfile
+      context: .
+      dockerfile: ./dockerfile
     restart: "no"
+    entrypoint: ["./efbundle"]
     depends_on:
       db:
         condition: "service_healthy"
