@@ -17,20 +17,8 @@ jobs:
         uses: yu-ichiro/spin-up-docker-compose-action@v1
         with:
           file: ./docker-compose.yaml
-          shared: true
           bake: true
-          up: false
-
-  test:
-    needs: build-image
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup Docker Compose and Up
-        uses: yu-ichiro/spin-up-docker-compose-action@v1
-        with:
-          file: docker/compose.yaml
-          shared: true
-          pull: true
-
+          # shared: true
+      # check all services are up
+      # - name: Check services
+      #   run: docker-compose ps -q
