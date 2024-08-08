@@ -10,6 +10,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # for test database
+    services:
+      db:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+    # restore, build, test
     steps:
       - name: Checkout
         uses: actions/checkout@v3
