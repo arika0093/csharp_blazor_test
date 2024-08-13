@@ -2,12 +2,7 @@
   workflow_dispatch:
   push:
     branches:
-      - "release/**"
-    paths:
-      - '**.cs'
-      - '**.yaml'
-      - '**.csproj'
-      - '**.dockerfile'
+      - "release/*"
 
 jobs:
   publish:
