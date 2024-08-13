@@ -8,10 +8,26 @@ on:
       - '**.csproj'
       - '**.dockerfile'
 
+env:
+  DB_HOST: db
+  DB_PORT: 5432
+  DB_USER : postgres
+  DB_PASSWORD : postgres
+  DB_DATABASE : postgres
+
 jobs:
+  # build and run with docker-compose
   docker-compose:
     runs-on: ubuntu-latest
     steps:
+      # export env vars to runner env
+      - name: Set env vars
+        run: |
+          echo "DB_HOST=${{ env.DB_HOST }}" >> $GITHUB_ENV &&
+          echo "DB_PORT=${{ env.DB_PORT }}" >> $GITHUB_ENV &&
+          echo "DB_USERNAME=${{ env.DB_USER }}" >> $GITHUB_ENV &&
+          echo "DB_PASSWORD=${{ env.DB_PASSWORD }}" >> $GITHUB_ENV &&
+          echo "DB_DATABASE=${{ env.DB_DATABASE }}" >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v3
         with:
@@ -26,5 +42,3 @@ jobs:
       # build and execute
       - name: Setup Docker Compose
         run: docker compose up -d --build
-
-
