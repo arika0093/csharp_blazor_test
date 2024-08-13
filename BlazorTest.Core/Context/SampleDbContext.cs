@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using BlazorTest.Core.Models;
-using Microsoft.EntityFrameworkCore;
-using Npgsql;
 using DotNetEnv;
+using Microsoft.EntityFrameworkCore;
 using NLog;
+using Npgsql;
 
 namespace BlazorTest.Core.Context;
 
@@ -55,7 +55,7 @@ public partial class SampleDbContext : DbContext
         Logger.Info("DB Connect to: {0}", PasswordHiddenConnStrBuilder.ConnectionString);
         optionsBuilder.UseNpgsql(
             ConnectionStringBuilder.ConnectionString
-            ,x => x.MigrationsAssembly("BlazorTest.Migrations")
+            , x => x.MigrationsAssembly("BlazorTest.Migrations")
         );
     }
 

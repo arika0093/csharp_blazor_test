@@ -8,6 +8,8 @@
       <PublishSingleFile>true</PublishSingleFile>
       <DebugType>embedded</DebugType>
       <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+      <ContainerRepository>blazortest-web</ContainerRepository>
+      <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
   <ItemGroup>
@@ -24,4 +26,18 @@
     <ProjectReference Include="..\BlazorTest.Core\BlazorTest.Core.csproj" />
     <ProjectReference Include="..\BlazorTest.Migrations\BlazorTest.Migrations.csproj" />
   </ItemGroup>
+
+  <!-- https://learn.microsoft.com/en-us/dotnet/core/docker/publish-as-container?pivots=dotnet-8-0 -->
+  <PropertyGroup>
+    <IsPublishable>true</IsPublishable>
+    <EnableSdkContainerSupport>true</EnableSdkContainerSupport>
+    <ContainerBaseImage>mcr.microsoft.com/dotnet/aspnet:8.0</ContainerBaseImage>
+    <ContainerRegistry>ghcr.io</ContainerRegistry>
+    <ContainerRepository>arika0093/csharp_blazor_test</ContainerRepository>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ContainerLabel Include="org.opencontainers.image.source" Value="https://github.com/arika0093/csharp_blazor_test"/>
+  </ItemGroup>
+  
 </Project>

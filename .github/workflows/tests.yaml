@@ -1,5 +1,6 @@
 # C# .NET setup and build, test
 on:
+  workflow_dispatch:
   push:
     paths:
       - '**.cs'
@@ -7,8 +8,15 @@ on:
       - '**.csproj'
       - '**.dockerfile'
 
+env:
+  DB_HOST: db
+  DB_PORT: 5432
+  DB_USER : postgres
+  DB_PASSWORD : postgres
+  DB_DATABASE : postgres
+
 jobs:
-  build:
+  tests:
     runs-on: ubuntu-latest
     # for test database
     services:
@@ -17,9 +25,9 @@ jobs:
         ports:
           - 5432:5432
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
+          POSTGRES_USER: ${{ env.DB_USER }}
+          POSTGRES_PASSWORD: ${{ env.DB_PASSWORD }}
+          POSTGRES_DB: ${{ env.DB_DATABASE }}
     # restore, build, test
     steps:
       - name: Checkout
@@ -32,5 +40,7 @@ jobs:
         run: dotnet restore
       - name: Build
         run: dotnet build
+      - name: Setup database
+        run: dotnet ef database update
       - name: Test
         run: dotnet test

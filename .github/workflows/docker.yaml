@@ -1,5 +1,6 @@
 # C# web application with Docker Compose
 on:
+  workflow_dispatch:
   push:
     paths:
       - '**.cs'
