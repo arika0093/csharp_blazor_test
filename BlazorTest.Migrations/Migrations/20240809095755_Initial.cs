@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace BlazorTest.Migrations.Entities
+namespace BlazorTest.Core.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration

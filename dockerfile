@@ -31,7 +31,7 @@ WORKDIR /source/BlazorTest.Migrations
 # export sql
 RUN dotnet ef migrations script -o ./migrations.sql --idempotent
 # generate efbundle
-RUN dotnet ef migrations bundle --self-contained -r linux-x64 -o ./efbundle
+RUN dotnet ef migrations bundle --idempotent --self-contained -r linux-x64 -o ./efbundle
 
 # --------------------
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final

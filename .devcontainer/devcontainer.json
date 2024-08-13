@@ -2,10 +2,7 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/dotnet-postgres
 {
 	"name": "C# (.NET) and PostgreSQL",
-	"dockerComposeFile": [
-        "../docker-compose.yml",
-        "./docker-compose.dev.yml"
-    ],
+	"dockerComposeFile": "./docker-compose.yaml",
 	"service": "app",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 	"customizations": {
@@ -15,5 +12,5 @@
 				"formulahendry.dotnet-test-explorer"
 			]
 		}
-	}
+	},
 }
