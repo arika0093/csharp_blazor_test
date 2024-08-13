@@ -43,6 +43,6 @@ jobs:
       - name: Build
         run: dotnet build
       - name: Setup database
-        run: dotnet ef database update
+        run: dotnet ef database update --project BlazorTest.Migrations
       - name: Test
         run: dotnet test

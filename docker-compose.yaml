@@ -1,5 +1,5 @@
-include: 
-  - ./docker-compose.dev.yaml
+include:
+  - ./docker-compose.db.yaml
 services:
   app:
     build:
