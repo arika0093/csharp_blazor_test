@@ -1,0 +1,44 @@
+include:
+  - ./docker-compose.db.yaml
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./dockerfile
+    restart: "unless-stopped"
+    entrypoint: ["./web"]
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+    depends_on:
+      migration:
+        condition: "service_completed_successfully"
+
+  migration:
+    build:
+      context: .
+      dockerfile: ./dockerfile
+    restart: "no"
+    entrypoint: ["./efbundle"]
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+    depends_on:
+      db:
+        condition: "service_healthy"
+
+volumes:
+  postgres-data:

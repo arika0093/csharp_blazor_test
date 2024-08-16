@@ -1,0 +1,9 @@
+.devcontainer
+.github
+.idea
+.vscode
+**/bin/
+**/obj/
+publish/
+.dockerfile
+docker-compose.yaml

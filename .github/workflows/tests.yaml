@@ -1,0 +1,59 @@
+# C# .NET setup and build, test
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '**.cs'
+      - '**.yaml'
+      - '**.csproj'
+      - '**.dockerfile'
+
+env:
+  DB_HOST: localhost
+  DB_PORT: 5432
+  DB_USER : postgres
+  DB_PASSWORD : postgres
+  DB_DATABASE : postgres
+
+jobs:
+  # setup, restore, build, test
+  tests:
+    runs-on: ubuntu-latest
+    # for test database
+    services:
+      db:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: ${{ env.DB_USER }}
+          POSTGRES_PASSWORD: ${{ env.DB_PASSWORD }}
+          POSTGRES_DB: ${{ env.DB_DATABASE }}
+    # restore, build, test
+    steps:
+      # export env vars to runner env
+      - name: Set env vars
+        run: |
+          echo "DB_HOST=${{ env.DB_HOST }}" >> $GITHUB_ENV &&
+          echo "DB_PORT=${{ env.DB_PORT }}" >> $GITHUB_ENV &&
+          echo "DB_USERNAME=${{ env.DB_USER }}" >> $GITHUB_ENV &&
+          echo "DB_PASSWORD=${{ env.DB_PASSWORD }}" >> $GITHUB_ENV &&
+          echo "DB_DATABASE=${{ env.DB_DATABASE }}" >> $GITHUB_ENV
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '8.0.x'
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build
+      - name: Setup database
+        run: dotnet ef database update --project BlazorTest.Migrations
+      - name: Test
+        run: dotnet test
+
+
